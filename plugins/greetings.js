@@ -4,8 +4,6 @@ const {
 } = require('../lib/')
 const sql = require('../lib/database/greetings')
 
-// TODO: change button to text
-
 Function({
     pattern: 'welcome ?(.*)',
     fromMe: true,
@@ -14,73 +12,57 @@ Function({
     type: 'group'
 }, async (message, match, client) => {
     const groupMetadata = await client.groupMetadata(message.chat)
-    let welcomeMessage = await sql.getMessage(message.jid)
-    let buttons = [
-        {
-            buttonId: prefix + 'welcome on',
-            buttonText: { displayText: 'ON' },
-            type: 1
-        },
-        {
-            buttonId: prefix + 'welcome off',
-            buttonText: { displayText: 'OFF' },
-            type: 1
-        },
-        {
-            buttonId: prefix + 'welcome get',
-            buttonText: { displayText: 'GET' },
-            type: 1
-        }
-    ]
+    const welcomeMessage = await sql.getMessage(message.jid)
+    const welcomeEnabled = (welcomeMessage && welcomeMessage.enabled) || false
+    const text = (match || '').trim()
+    const input = text.toLowerCase()
 
-    let welcomeEnabled = welcomeMessage && welcomeMessage.enabled
-    const buttonMessage = {
-        text: '*Example: .welcome on/off/delete*\n' +
-            '*.welcome Hey &mention, Welcome to &gname*\n\n' +
-            '```For more information visit:``` https://github.com/A-d-i-t-h-y-a-n/hermit-md/wiki/greetings',
-        footer: `Group Name: ${groupMetadata.subject}\nWelcome Message Status: ${welcomeEnabled ? 'Enabled' : 'Disabled'}`,
-        buttons: buttons,
-        headerType: 1
-    }
-    
-    if (!match) {
-        return await message.client.sendMessage(message.chat, buttonMessage)
+    if (!text) {
+        return await message.reply(
+            `*Welcome Manager*\n\n` +
+            `Group: ${groupMetadata.subject}\n` +
+            `Status: ${welcomeEnabled ? 'Enabled' : 'Disabled'}\n\n` +
+            `Usage:\n` +
+            `${prefix}welcome on\n` +
+            `${prefix}welcome off\n` +
+            `${prefix}welcome get\n` +
+            `${prefix}welcome delete\n` +
+            `${prefix}welcome Hey &mention, Welcome to &gname`
+        )
     }
 
-    switch (match) {
-        case "on":
-            if (!welcomeMessage) return message.reply('_Welcome message not set._')
+    switch (input) {
+        case 'on':
+            if (!welcomeMessage) return await message.reply('_Welcome message not set._')
             await sql.enableMessage(message.jid)
             await message.reply('_Welcome activated_')
             break
-        case "off":
-            if (!welcomeMessage) return message.reply('_Welcome message not set._')
+        case 'off':
+            if (!welcomeMessage) return await message.reply('_Welcome message not set._')
             await sql.disableMessage(message.jid)
             await message.reply('_Welcome deactivated_')
             break
-        case "delete":
-            if (!welcomeMessage) return message.reply('_Welcome message not set._')
+        case 'delete':
+            if (!welcomeMessage) return await message.reply('_Welcome message not set._')
             await sql.deleteMessage(message.jid, 'welcome')
             await message.reply('_Welcome deleted_')
             break
-        case "get":
-            if (!welcomeMessage) return message.reply('_Welcome message not set._')
-            const updateWelcome = {
+        case 'get':
+            if (!welcomeMessage) return await message.reply('_Welcome message not set._')
+            await client.ev.emit('group-participants.update', {
                 id: message.chat,
                 participants: [message.sender],
                 action: 'add'
-            }
-            await client.ev.emit('group-participants.update', updateWelcome)
-            message.reply(welcomeMessage.message)
+            })
+            await message.reply(welcomeMessage.message)
             break
         default:
-            await sql.setMessage(message.jid, 'welcome', match)
-            const update = {
+            await sql.setMessage(message.jid, 'welcome', text)
+            await client.ev.emit('group-participants.update', {
                 id: message.chat,
                 participants: [message.sender],
                 action: 'add'
-            }
-            await client.ev.emit('group-participants.update', update)
+            })
             await message.reply('_Welcome updated_')
     }
 })
@@ -93,73 +75,58 @@ Function({
     type: 'group'
 }, async (message, match, client) => {
     const groupMetadata = await client.groupMetadata(message.chat)
-    let goodbyeMessage = await sql.getMessage(message.jid, 'goodbye')
-    let buttons = [
-        {
-            buttonId: prefix + 'goodbye on',
-            buttonText: { displayText: 'ON' },
-            type: 1
-        },
-        {
-            buttonId: prefix + 'goodbye off',
-            buttonText: { displayText: 'OFF' },
-            type: 1
-        },
-        {
-            buttonId: prefix + 'goodbye get',
-            buttonText: { displayText: 'GET' },
-            type: 1
-        }
-    ]
+    const goodbyeMessage = await sql.getMessage(message.jid, 'goodbye')
+    const goodbyeEnabled = (goodbyeMessage && goodbyeMessage.enabled) || false
+    const text = (match || '').trim()
+    const input = text.toLowerCase()
 
-    let goodbyeEnabled = goodbyeMessage && goodbyeMessage.enabled
-    const buttonMessage = {
-        text: '*Example: .goodbye on/off/delete*\n' +
-            '*.goodbye Bye &mention*\n\n' +
-            '```For more information visit:``` https://github.com/A-d-i-t-h-y-a-n/hermit-md/wiki/greetings',
-        footer: `Group Name: ${groupMetadata.subject}\nGoodbye Message Status: ${goodbyeEnabled ? 'Enabled' : 'Disabled'}`,
-        buttons: buttons,
-        headerType: 1
+    if (!text) {
+        return await message.reply(
+            `*Goodbye Manager*\n\n` +
+            `Group: ${groupMetadata.subject}\n` +
+            `Status: ${goodbyeEnabled ? 'Enabled' : 'Disabled'}\n\n` +
+            `Usage:\n` +
+            `${prefix}goodbye on\n` +
+            `${prefix}goodbye off\n` +
+            `${prefix}goodbye get\n` +
+            `${prefix}goodbye delete\n` +
+            `${prefix}goodbye Bye &mention\n\n` +
+            `More info: https://github.com/A-d-i-t-h-y-a-n/hermit-md/wiki/greetings`
+        )
     }
 
-    if (!match) {
-        return await message.client.sendMessage(message.chat, buttonMessage)
-    }
-
-    switch (match) {
-        case "on":
-            if (!goodbyeMessage) return message.reply('_Goodbye message not set._')
+    switch (input) {
+        case 'on':
+            if (!goodbyeMessage) return await message.reply('_Goodbye message not set._')
             await sql.enableMessage(message.jid, 'goodbye')
             await message.reply('_Goodbye activated_')
             break
-        case "off":
-            if (!goodbyeMessage) return message.reply('_Goodbye message not set._')
+        case 'off':
+            if (!goodbyeMessage) return await message.reply('_Goodbye message not set._')
             await sql.disableMessage(message.jid, 'goodbye')
             await message.reply('_Goodbye deactivated_')
             break
-        case "delete":
-            if (!goodbyeMessage) return message.reply('_Goodbye message not set._')
+        case 'delete':
+            if (!goodbyeMessage) return await message.reply('_Goodbye message not set._')
             await sql.deleteMessage(message.jid, 'goodbye')
             await message.reply('_Goodbye deleted_')
             break
-        case "get":
-            if (!goodbyeMessage) return message.reply('_Goodbye message not set._')
-            const updateGoodbye = {
+        case 'get':
+            if (!goodbyeMessage) return await message.reply('_Goodbye message not set._')
+            await client.ev.emit('group-participants.update', {
                 id: message.chat,
                 participants: [message.sender],
                 action: 'remove'
-            }
-            await client.ev.emit('group-participants.update', updateGoodbye)
-            message.reply(goodbyeMessage.message)
+            })
+            await message.reply(goodbyeMessage.message)
             break
         default:
-            await sql.setMessage(message.jid, 'goodbye', match)
-            const update = {
+            await sql.setMessage(message.jid, 'goodbye', text)
+            await client.ev.emit('group-participants.update', {
                 id: message.chat,
                 participants: [message.sender],
                 action: 'remove'
-            }
-            await client.ev.emit('group-participants.update', update)
+            })
             await message.reply('_Goodbye updated_')
     }
 })
