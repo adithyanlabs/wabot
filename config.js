@@ -23,7 +23,7 @@ module.exports = {
   READ_MSG: toBool(process.env.READ_MSG),
   MSG_LOG: convertToBool(process.env.LOG_MSG),
   BLOCKCHAT: process.env.BLOCK_CHAT || false,
-  LANG: (process.env.LANGUAGE || 'EN').toUpperCase(),
+  LANG: ('EN').toUpperCase(),
   ALWAYS_ONLINE: toBool(process.env.ALWAYS_ONLINE),
   BOT_NAME: process.env.BOT_NAME || 'ʜᴇʀᴍɪᴛ',
   AUTOMUTE_MSG: process.env.AUTOMUTE_MSG || '_Group automuted!_\n_(Change this by setting var AUTOMUTE_MSG)_',
