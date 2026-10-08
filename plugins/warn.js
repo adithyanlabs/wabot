@@ -2,7 +2,7 @@ const { Function, setWarn, resetWarn } = require('../lib/');
 const config = require('../config');
 
 async function isAdmin(participants, userId) {
-    return (await participants.filter(p => p.admin !== null).map(p => p.jid)).includes(userId);
+    return (await participants.filter(p => p.admin !== null).map(p => p.lid)).includes(userId);
 }
 
 Function({
@@ -21,7 +21,7 @@ Function({
         const groupMetadata = await message.client.groupMetadata(message.jid);
         const participants = groupMetadata.participants;
         
-        const botIsAdmin = await isAdmin(participants, message.client.user.jid);
+        const botIsAdmin = await isAdmin(participants, message.client.user.lidid);
         const userIsAdmin = await isAdmin(participants, user);
         
         if (!botIsAdmin) return await message.reply("*I'm not an admin*");
