@@ -8,6 +8,8 @@ const {
     getFake
 } = require('../lib/database/antifake')
 
+// TODO: change button to text 
+
 Function({
     pattern: 'antifake ?(.*)',
     fromMe: true,

@@ -4,6 +4,8 @@ const {
 } = require('../lib/')
 const sql = require('../lib/database/greetings')
 
+// TODO: change button to text
+
 Function({
     pattern: 'welcome ?(.*)',
     fromMe: true,

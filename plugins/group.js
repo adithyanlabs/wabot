@@ -16,6 +16,8 @@ const isAdmin = async (message, user) => {
 	return admins.includes(user)
 }
 
+// TODO: fix invite link 
+
 Function({
 		pattern: 'add ?(.*)',
 		fromMe: true,

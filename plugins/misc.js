@@ -31,26 +31,6 @@ Function({
     await message.reply(sender)
 });
 
-Function({
-    pattern: 'emix ?(.*)',
-    fromMe: isPublic,
-    desc: 'emoji mix',
-    type: 'sticker'
-}, async (message, match) => {
-    if (!match) return await message.reply('_Need Emoji!_\n*Example* : 🥸,😁')
-    let [emoji1, emoji2] = match.split(',')
-    if (!emoji1) return await message.reply('_Need 2 Emojis!_\n*Example* : 🥸,😁')
-    if (!emoji2) return await message.reply('_Need 2 Emojis!_\n*Example* : 🥸,😁')
-    const { results } = await getJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
-    for (let res of results) {
-        let media = await message.client.sendImageAsSticker(message.chat, res.url, message.data, {
-            packname: emoji1,
-            author: emoji2,
-            categories: res.tags
-        })
-        await fs.unlinkSync(media)
-    }
-});
 
 Function({
     pattern: 'tovn ?(.*)',
@@ -88,25 +68,6 @@ Function({
 });
 
 Function({
-    pattern: 'google ?(.*)',
-    desc: 'Search in Google and show result in list',
-    fromMe: isPublic,
-    type: 'search'
-}, async (message, match) => {
-    if (!match) return message.reply('Example: who is Elon Musk');
-    let google = require('google-it');
-    google({'query': match}).then(res => {
-        let result_info = `Google Search For: ${match}\n\n`;
-        for (let result of res) {
-            result_info += `⬡ *Title:* ${result.title}\n`;
-            result_info += `⬡ *Description:* ${result.snippet}\n`;
-            result_info += `⬡ *Link:* ${result.link}\n\n──────────────────────\n\n`;
-        }
-        message.send(result_info);
-    });
-});
-
-Function({
     pattern: 'reboot ?(.*)',
     fromMe: true,
     desc: 'Reboot the bot.',
@@ -115,6 +76,8 @@ Function({
     await message.reply('Rebooting...');
     require('pm2').restart('hermit-md');
 });
+
+// TODO: need to change name saved key lid to jid or add sender lid to the key object in message.js
 
 Function({
     pattern: 'whois ?(.*)',
@@ -155,47 +118,6 @@ Function({
 
 
 Function({
-    pattern: 'mode ?(.*)',
-    fromMe: true,
-    type: 'user'
-}, async (message, match) => {
-    let buttons = [
-        { buttonId: prefix + 'setvar mode:private', buttonText: { displayText: 'PRIVATE' }, type: 1 },
-        { buttonId: prefix + 'setvar mode:public', buttonText: { displayText: 'PUBLIC' }, type: 1 }
-    ];
-    const buttonMessage = {
-        footer: 'Current Mode: ' + config.MODE,
-        buttons: buttons,
-        headerType: 1
-    };
-    await message.send('Mode Manager', 'text', buttonMessage);
-});
-
-Function({
-    pattern: 'img ?(.*)',
-    fromMe: isPublic,
-    desc: 'Google Image search',
-    type: 'download'
-}, async (message, match) => {
-    if (!match) return await message.send('Need Query!\n*Example: .img neon anime || .img query,count*');
-    const [query, count] = match.split(',');
-    const result = await getJson(apiUrl + 'gis?text=' + encodeURI(query) + '&type=json');
-    const indices = new Set();
-    const imgs = [];
-    while (imgs.length < (count || 5)) {
-        const randomIndex = Math.floor(Math.random() * result.length);
-        if (!indices.has(randomIndex)) {
-            indices.add(randomIndex);
-            imgs.push(result[randomIndex].url);
-        }
-    }
-    await message.send(`_Downloading ${count || 5} images for ${query}_`);
-    for (let img of imgs) {
-        await message.send(img, 'image');
-    }
-});
-
-Function({
     pattern: 'doc ?(.*)',
     fromMe: isPublic,
     desc: 'Media to document',
@@ -208,42 +130,6 @@ Function({
     await message.send(buffer, 'document', { fileName });
 });
 
-Function({
-    pattern: 'ocr ?(.*)',
-    fromMe: isPublic,
-    desc: 'Optical Character Recognition',
-    type: 'media'
-}, async (message, match, client) => {
-    if (!message.reply_message || !message.reply_message.image) return await message.reply('Reply to an image');
-    var msg = await message.reply('Recognising...');
-    try {
-        const imageBuffer = await message.reply_message.download();
-        const formData = new FormData();
-        formData.append('image', imageBuffer, 'image.jpg');
-        const response = await axios.post(apiUrl + 'image-ocr', formData, {
-            headers: formData.getHeaders(),
-        });
-        await msg.edit(response.data.text);
-    } catch (error) {
-        await msg.edit('Failed to recognise');
-    }
-});
-
-Function({
-    pattern: 'gs ?(.*)',
-    fromMe: isPublic,
-    desc: 'Search in Google',
-    type: 'search'
-}, async (message, match, client) => {
-    if (!match) return await message.reply('Need query to search!\n_Example: gs who is elon musk_');
-    try {
-        const { result, status } = await getJson(`https://api.adithyan.xyz/search?query=${encodeURIComponent(match)}`);
-        if (status) return await message.reply(result);
-        await message.reply(result.error);
-    } catch {
-        await message.reply('Failed to search');
-    }
-});
 
 Function({
 	pattern: 'iswa ?(.*)',
@@ -266,49 +152,3 @@ Function({
         (notonwaText.length > 0 ? `*Numbers Not Registered on WhatsApp:* ${result.notExisting.length}\n\n${notonwaText.join('\n').trim()}` : '')
     );
 });
-
-Function({
-	pattern: 'settings ?(.*)',
-	fromMe: true,
-	desc: 'enable or disable variables',
-	type: 'user'
-}, async (message, match, client) => {
-
-const booleanVars = [
-    'SEND_READ',
-    'READ_MSG',
-    'LOG_MSG',
-    'ALWAYS_ONLINE',
-    'ERROR_MESSAGE',
-    'SONG_THUMBNAIL',
-    'REJECT_CALL',
-    'AUTO_STATUS_VIEW',
-    'START_MSG',
-];
-
-const buttons = booleanVars.flatMap((variable) => [
-    {
-        type: 'list',
-        maintitle: variable,
-        header: 'ENABLE',
-        title: '',
-        description: 'Set ' + variable + ' to true',
-        id: prefix + 'setvar ' + variable + ':true'
-    },
-    {
-        type: 'list',
-        header: 'DISABLE',
-        title: '',
-        description: 'Set ' + variable + ' to false',
-        id: prefix + 'setvar ' + variable + ':false'
-    }
-]);
-
-await client.interactiveMessage(message.chat, {
-    title: 'Enable/Disable Variables',
-    text: 'Choose a variable to enable or disable:',
-    footer: 'hermit-md',
-    buttons: buttons
-});
-
-})

@@ -19,6 +19,8 @@ const isBotAdmins = async (message) => {
 	return groupAdmins.includes(message.user_id)
 }
 
+// TOBO: button to text
+
 Function({
 	pattern: 'automute ?(.*)',
 	fromMe: true,

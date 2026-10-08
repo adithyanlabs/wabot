@@ -50,15 +50,6 @@ Function({
 });
 
 Function({
-	pattern: 'chatbot ?(.*)',
-	fromMe: true,
-	desc: 'set chat bot',
-	type: 'ai'
-}, async (message, match) => {
-	await chatBot(message, match)
-});
-
-Function({
 	on: 'text',
 	fromMe: false
 }, async (message, match) => {
