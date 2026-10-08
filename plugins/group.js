@@ -12,7 +12,7 @@ const arm = new Database('arm');
 
 const isAdmin = async (message, user) => {
 	const groupMetadata = await message.client.groupMetadata(message.chat)
-	const admins = await groupMetadata.participants.filter(v => v.admin !== null).map(v => v.id)
+	const admins = await groupMetadata.participants.filter(v => v.admin !== null).map(v => v.jid)
 	return admins.includes(user)
 }
 

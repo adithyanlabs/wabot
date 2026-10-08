@@ -6,7 +6,7 @@ const isBotAdmin = async (message) => {
 
     const groupMetadata = await message.client.groupMetadata(message.chat).catch(() => {});
     const participants = groupMetadata ? groupMetadata.participants : [];
-    const adminIds = participants.filter(participant => participant.admin !== null).map(participant => participant.id);
+    const adminIds = participants.filter(participant => participant.admin !== null).map(participant => participant.jid);
 
     return adminIds.includes(message.user_id);
 };
@@ -22,7 +22,7 @@ Function({
     }
     const media = await message.reply_message.downloadAndSaveMedia();
     await message.updateProfilePicture(message.user_id, media);
-    await message.send('_Successfully updated profile picture_');
+    await message.send("```Profile updated```");
 });
 
 Function({
@@ -36,7 +36,7 @@ Function({
     }
     const media = await message.reply_message.downloadAndSaveMedia();
     await message.updateProfilePicture(message.user_id, media);
-    await message.send('_Successfully updated profile picture_');
+    await message.send("```Profile updated```");
 });
 
 Function({
@@ -54,7 +54,7 @@ Function({
     }
     const media = await message.reply_message.downloadAndSaveMedia();
     await message.updateProfilePicture(message.chat, media);
-    await message.send('_Successfully updated group icon_');
+    await message.send("```Group icon updated```");
 });
 
 Function({

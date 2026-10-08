@@ -2,7 +2,7 @@ const { Function, setWarn, resetWarn } = require('../lib/');
 const config = require('../config');
 
 async function isAdmin(participants, userId) {
-    return (await participants.filter(p => p.admin !== null).map(p => p.id)).includes(userId);
+    return (await participants.filter(p => p.admin !== null).map(p => p.jid)).includes(userId);
 }
 
 Function({

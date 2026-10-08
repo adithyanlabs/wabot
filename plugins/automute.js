@@ -15,7 +15,7 @@ const {
 const isBotAdmins = async (message) => {
 	const groupMetadata = await message.client.groupMetadata(message.chat)
 	const participants = await groupMetadata.participants
-	const groupAdmins = await participants.filter(v => v.admin !== null).map(v => v.id)
+	const groupAdmins = await participants.filter(v => v.admin !== null).map(v => v.jid)
 	return groupAdmins.includes(message.user_id)
 }
 

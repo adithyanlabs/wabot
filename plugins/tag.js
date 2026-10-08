@@ -26,7 +26,7 @@ Function({
     } 
 
     if (match === 'admin' || match === 'admins') {
-        const admins = participants.filter(participant => participant.admin !== null).map(participant => participant.id);
+        const admins = participants.filter(participant => participant.admin !== null).map(participant => participant.jid);
         let msg = '';
         let count = 1;
         for (const admin of admins) {
