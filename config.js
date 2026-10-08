@@ -6,9 +6,6 @@ if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env'
 const convertToBool = (text, fault = 'true') => text === fault;
 const toBool = (x) => (x && x.toLowerCase() === 'true') || false;
 
-global.apikey = { 'https://api.adithyan.xyz': 'free' };
-global.apiUrl = 'https://hermit-api.koyeb.app/';
-
 const DATABASE_URL = process.env.DATABASE_URL || './database.db';
 const hasCaCert = !!process.env.PG_CA_CERT;
 
