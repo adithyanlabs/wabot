@@ -9,7 +9,7 @@
   "author": "A-d-i-t-h-y-a-n",
   "license": "ISC",
   "dependencies": {
-    "baileys": "^7.0.0-rc.6",
+    "baileys": "latest",
     "browser-id3-writer": "^5.0.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
