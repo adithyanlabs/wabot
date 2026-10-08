@@ -6,9 +6,9 @@ const isBotAdmin = async (message) => {
 
     const groupMetadata = await message.client.groupMetadata(message.chat).catch(() => {});
     const participants = groupMetadata ? groupMetadata.participants : [];
-    const adminIds = participants.filter(participant => participant.admin !== null).map(participant => participant.jid);
+    const adminIds = participants.filter(participant => participant.admin !== null).map(participant => participant.id);
 
-    return adminIds.includes(message.user_id);
+    return adminIds.includes(message.client.user.lid);
 };
 
 Function({
