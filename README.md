@@ -4,7 +4,7 @@ Hermit-md - Simple whatsapp Multi Device whatsapp bot.
 ***
 
 ### SETUP
-1. [![Fork](https://img.shields.io/github/forks/a-d-i-t-h-y-a-n/hermit-bot?style=social)](https://github.com/a-d-i-t-h-y-a-n/hermit-bot/fork)
+1. [![Fork](https://img.shields.io/github/forks/adithyanlabs/hermit-bot?style=social)](https://github.com/adithyanlabs/hermit-bot/fork)
 2. Scan the QR or pair and copy it
     <br>
 <a href='https://hermit-md.vercel.app/' target="_blank"><img alt='SESSION' src='https://img.shields.io/badge/SESSION-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=black&color=black'/></a>
@@ -29,13 +29,13 @@ Hermit-md - Simple whatsapp Multi Device whatsapp bot.
     <br>
 <a href='https://dashboard.render.com/register' target="_blank"><img alt='render' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=render&logoColor=white'/></a>
 
-3. Get [DATABASE_URL](https://github.com/A-d-i-t-h-y-a-n/hermit-md/wiki/DATABASE_URL) and copy it
+3. Get [DATABASE_URL](https://github.com/adithyanlabs/hermit-md/wiki/DATABASE_URL) and copy it
 
 4. Get [Render api key](https://dashboard.render.com/u/settings#api-keys)
 
 2. Now Deploy
     <br>
-<a href='https://render.com/deploy?repo=https://github.com/A-d-i-t-h-y-a-n/hermit-bot' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=render&logoColor=white'/></a>
+<a href='https://render.com/deploy?repo=https://github.com/adithyanlabs/hermit-bot' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=render&logoColor=white'/></a>
 
 #### DEPLOY TO KOYEB 
 
@@ -59,7 +59,7 @@ Hermit-md - Simple whatsapp Multi Device whatsapp bot.
 2. Installation
    ```
    npm i -global pm2
-   git clone https://github.com/A-d-i-t-h-y-a-n/hermit-bot.git
+   git clone https://github.com/adithyanlabs/wabot.git
    cd hermit-bot
    npm install
    ```
@@ -83,7 +83,7 @@ Hermit-md - Simple whatsapp Multi Device whatsapp bot.
   ```
 <br>
 
-For help visit [Github wiki](https://github.com/A-d-i-t-h-y-a-n/hermit-bot/wiki)
+For help visit [Github wiki](https://github.com/adithyanlabs/hermit-bot/wiki)
 
 ***
 
