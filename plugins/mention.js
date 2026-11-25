@@ -89,7 +89,8 @@ Function({
 	if (!enabled || !data) return
 	const Message = require('../lib/Message')
 	const msg = message.messages[0]
-	msg.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
+	if (!msg?.message) return
+	msg.message = (Object.keys(msg.message)[0] === 'ephemeralMessage') ? msg.message.ephemeralMessage.message : msg.message
 	const m = new Message(client, msg)
 	if (!m.mentionedJid) return
 	

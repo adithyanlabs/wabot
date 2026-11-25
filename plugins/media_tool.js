@@ -1,6 +1,7 @@
 const { Function, isPublic, addAudioMetaData, toAudio, getBuffer, getRandom, webp2mp4File, pdf } = require('../lib/')
 const { STICKER_DATA, AUDIO_DATA } = require ('../config')
 const { addExif } = require('../lib/')
+const { sendStickerAudio, sentStickerAudioFor } = require('../lib/proto-ext')
 const {exec} = require("child_process")
 const fs = require('fs')
 const c = require ('../config')
@@ -31,8 +32,22 @@ Function({pattern: 'take ?(.*)', fromMe: isPublic, desc: 'Change sticker or audi
 if (!message.reply_message || (!message.reply_message.sticker && !message.reply_message.audio)) return await message.send('*_Reply to an audio or a sticker!_*')
 if (message.reply_message.sticker) {
 
-const media = await message.reply_message.download()
+const stream = await global.Baileys.downloadContentFromMessage(message.reply_message.data.message.stickerMessage, 'sticker')
+const chunks = []
+for await (const chunk of stream) chunks.push(chunk)
+const media = Buffer.concat(chunks)
 const media_output = await addExif(media, match)
+const stickerMessage = message.reply_message.data.message.stickerMessage
+let audio = stickerMessage.audioMessage || sentStickerAudioFor(message.reply_message.id)
+let saved
+if (!audio && message.reply_message.id) {
+  saved = await client.store.loadMessage(message.reply_message.chat, message.reply_message.id)
+  audio = saved?.message?.stickerMessage?.audioMessage
+}
+if (audio) return await sendStickerAudio(client, message.chat, media_output, audio, {
+  emojis: stickerMessage.emojis || saved?.message?.stickerMessage?.emojis,
+  quoted: message.data
+})
 return await message.client.sendMessage(message.chat, { sticker : media_output } )
 }
 if (message.reply_message.audio) {

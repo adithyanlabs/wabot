@@ -1,26 +1,23 @@
 {
   "name": "hermit-md",
-  "version": "4.4.7",
+  "version": "4.4.6",
   "description": "Hermit-md - Simple whatsapp Multi Device bot based on baileys.",
   "main": "index.js",
   "scripts": {
     "start": "PIDUSAGE_SILENT=true pm2 start . --attach --name hermit-md"
   },
-  "author": "A-d-i-t-h-y-a-n",
+  "author": "adithyanlabs",
   "license": "ISC",
   "dependencies": {
     "baileys": "latest",
     "browser-id3-writer": "^5.0.0",
-    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5",
     "fluent-ffmpeg": "^2.1.3",
-    "form-data": "^4.0.0",
     "fs-extra": "^11.3.0",
     "google-tts-api": "^2.0.2",
     "got": "^11.8.3",
-    "imgbb-uploader": "^1.5.1",
     "jimp": "^1.6.0",
-    "link-preview-js": "^3.1.0",
+    "moment-timezone": "^0.6.6",
     "node-cache": "^5.1.2",
     "node-cron": "^3.0.3",
     "node-fetch": "^2.7.0",
@@ -29,14 +26,12 @@
     "pdfkit": "^0.15.0",
     "pg": "^8.12.0",
     "pm2": "^5.4.2",
+    "protobufjs": "^7.6.6",
     "qrcode-terminal": "^0.12.0",
-    "sequelize": "^6.37.3",
     "simple-git": "^3.25.0",
     "socket.io-client": "^4.7.5",
-    "sqlite3": "^5.1.7",
     "string-crypto": "^2.0.2",
     "translate-google-api": "^1.0.4",
-    "youtubei.js": "^12.2.0",
-    "yt-search": "^2.11.1"
+    "youtubei.js": "^18.3.0"
   }
 }

@@ -6,7 +6,8 @@ const {
     getJson,
     Database,
     commands,
-    PREFIX
+    PREFIX,
+    pluginFile
 } = require('../lib/');
 const Config = require('../config');
 const axios = require('axios');
@@ -43,8 +44,9 @@ Function({
         if (plugin.length < 1) return await message.reply(`Plugin *${match}* not found.`);
         await removeCommand(plugin[0].dataValues.name);
         await plugin[0].destroy();
-        delete require.cache[require.resolve(`./${match}.js`)];
-        fs.unlinkSync(`./plugins/${match}.js`);
+        const pluginPath = require('path').join(__dirname, pluginFile(match));
+        delete require.cache[pluginPath];
+        if (fs.existsSync(pluginPath)) fs.unlinkSync(pluginPath);
         await message.reply('Plugin successfully deleted!\nReboot the BOT');
     } catch (error) {
         console.error(error);

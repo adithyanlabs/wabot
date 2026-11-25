@@ -1,6 +1,5 @@
 const {
     Function,
-    getString,
     parseMessage
 } = require('../lib/');
 const FilterDb = require('../lib/database/filters');

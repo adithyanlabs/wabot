@@ -2,10 +2,7 @@ const {
 	Function,
 	isPublic,
 	sendAlive,
-	runtime,
-	chatBot,
-	isChatBot,
-	chatbot
+	runtime
 } = require("../lib/");
 const config = require('../config')
 
@@ -49,12 +46,5 @@ Function({
 	await message.send(await runtime(process.uptime()));
 });
 
-Function({
-	on: 'text',
-	fromMe: false
-}, async (message, match) => {
-	if (!await isChatBot(message)) return
-	if (!message.reply_message) return
-	if (!message.reply_message.data.key.fromMe) return
-	await message.reply(await chatbot(message))
-})
+// The reply chatbot used api.brainshop.ai, which has shut down; its lib functions were
+// removed earlier, so this handler threw "isChatBot is not a function" on every message.

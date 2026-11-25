@@ -1,7 +1,6 @@
 const {
     Function,
     isPublic,
-    instagram,
     getJson,
     postJson,
     getUrl

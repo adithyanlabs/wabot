@@ -22,7 +22,7 @@
             "REMOVE_DESC": "Removes the plugin.",
             "NEED_PLUGIN": "```Please enter a Plugin! Example: .plugin __test```",
             "NOT_FOUND_PLUGIN": "```Maybe you have installed such a plugin, or maybe not. But it sure isn't right now.```",
-            "DELETED": "_Plugin successfully deleted!_"
+            "DELETED": "_Plugin successfully deleted! You must restart for the changes to take effect._"
         },
         "admin": {
             "BAN_DESC": "Ban someone in the group. Reply to message or tag a person to use command.",
@@ -92,7 +92,7 @@
         "filters": {
             "FILTER_DESC": "It adds a filter. If someone writes your filter, it send the answer. If you just write .filter, it show's your filter list.",
             "NO_FILTER": "_There are no filters in this chat!_",
-            "FILTERS": "_There is your filters in this chat:_",
+            "FILTERS": "_ There is your filters in this chat:_",
             "NEED_REPLY": "_Please type in reply!_\n_Example:_",
             "FILTERED": "_Successfully set_ ```{}``` _to filter!_",
             "STOP_DESC": "Stops the filter you added previously.",
@@ -178,7 +178,7 @@
             "DOWNLOADING_SONG": "```Downloading your song...```",
             "UPLOADING_SONG": "```Uploading your song...```",
             "VIDEO_DESC": "Downloads video from YouTube.",
-            "NEED_VIDEO": "_Please write a video link!_\n_Example:_ ```.video https://youtu.be/1IplpGR-XX8```",
+            "NEED_VIDEO": "_Please write a video link!_\n_Example:_ ```.video https://www.youtube.com/watch?v=nAFlVm5qeBc```",
             "DOWNLOADING_VIDEO": "```Downloading your video...```",
             "UPLOADING_VIDEO": "_Uploading your video..._",
             "YT_DESC": "It searchs on YouTube.",
@@ -230,6 +230,17 @@
             "UPLOAD": "Upload",
             "DOWNLOAD": "Download",
             "PING_DESC": "Measures your ping."
+        },
+        "notes": {
+            "NOTES_USAGE": "Shows all your existing notes.",
+            "NO_SAVED": "You don't have any saved notes.",
+            "SAVED": "Here is your saved messages: ",
+            "SAVE_USAGE": "Reply a message and type .save or just use .save <Your note> without replying",
+            "REPLY": "Please provide a note or reply to a message.",
+            "SUCCESSFULLY_ADDED": "Successfully added new note, check your notes with .notes.",
+            "UNSUCCESSFUL": "Could not add note, please try again later or contact WhatsAsena developers.",
+            "DELETE_USAGE": "Deletes *all* your saved notes.",
+            "SUCCESSFULLY_DELETED": "Successfully deleted all your notes."
         }
     }
 }

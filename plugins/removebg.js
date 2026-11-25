@@ -17,7 +17,7 @@ Function({
 }, async (message, match) => {
     if (!message.reply_message) return await message.reply('Please reply to an image.');
     if (!/image/.test(message.mine)) return await message.reply('Please reply to an image.');
-    if (Config.RBG_API_KEY === false) return await message.reply('No API key provided for remove.bg.');
+    if (Config.REMOVE_BG_API_KEY === false) return await message.reply('No API key provided for remove.bg.');
 
     const loadingMessage = await message.reply('Processing...');
     const location = await message.reply_message.downloadAndSaveMedia();
@@ -28,7 +28,7 @@ Function({
     const rbg = await got.stream.post('https://api.remove.bg/v1.0/removebg', {
         body: form,
         headers: {
-            'X-Api-Key': Config.RBG_API_KEY
+            'X-Api-Key': Config.REMOVE_BG_API_KEY
         }
     });
 
