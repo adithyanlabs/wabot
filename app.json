@@ -1,0 +1,71 @@
+{
+  "name": "whatsapp-bot (hermit-md)",
+  "description": " Whatsapp bot.",
+  "keywords": [
+    "whatsapp bot"
+  ],
+  "repository": "https://github.com/A-d-i-t-h-y-a-n/hermit-md",
+  "stack": "container",
+  "env": {
+    "SESSION_ID": {
+      "description": "session id",
+      "required": true,
+      "value": ""
+    },
+    "SUDO": {
+      "description": "admin",
+      "required": true,
+      "value": "null"
+    },
+    "MODE": {
+      "description": "mode",
+      "required": true,
+      "value": "public"
+    },
+    "ALWAYS_ONLINE": {
+      "description": "show bot number last seen as online",
+      "required": false,
+      "value": "false"
+    },
+    "LOG_MSG": {
+      "description": "Show whatsapp msgs in log",
+      "required": false,
+      "value": "false"
+    },
+    "PREFIX": {
+      "description": "prefix for bot. all so can be null or false multi prefix",
+      "required": true,
+      "value": "."
+    },
+    "BOT_INFO": {
+      "description": "botname;ownername;ownernumber;image url",
+      "required": true,
+      "value": "𝛨𝛯𝑅𝛭𝛪𝑇;𝛥𝐷𝛪𝑇𝛨𝑌𝛥𝛮;972528277755;https://i.imgur.com/pbNNWfM.jpeg"
+    },
+    "STICKER_DATA": {
+      "description": "sticker package name",
+      "required": true,
+      "value": "𝛨𝛯𝑅𝛭𝛪𝑇;𝛥𝐷𝛪𝑇𝛨𝑌𝛥𝛮"
+    },
+    "AUDIO_DATA": {
+      "description": "audio package name",
+      "required": true,
+      "value": "𝛨𝛯𝑅𝛭𝛪𝑇;𝛥𝐷𝛪𝑇𝛨𝑌𝛥𝛮;https://i.imgur.com/pbNNWfM.jpeg"
+    },
+    "READ_COMMAND": {
+      "description": "Read all commands",
+      "required": false,
+      "value": "false"
+    },
+    "ERROR_MESSAGE": {
+      "description": "send error reports to the first SUDO number (default true)",
+      "required": false,
+      "value": "true"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ]
+}
