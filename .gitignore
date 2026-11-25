@@ -1,3 +1,21 @@
-node_modules
-*.env
+node_modules/
+
+# runtime data and credentials
+session/
 *.db
+*.db-journal
+*.db-wal
+*.db-shm
+config.env
+*.env
+.env.*
+*.sqlite
+*.sqlite3
+.env
+
+# portable Node/ffmpeg/git downloaded by install.cmd
+.runtime/
+
+# ownership guard private key (never commit)
+license/owner.key
+license.key

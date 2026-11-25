@@ -1,0 +1,2 @@
+# install.cmd is a Windows-batch + sh polyglot: it must stay LF on every OS
+install.cmd text eol=lf
