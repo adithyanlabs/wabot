@@ -155,7 +155,8 @@ Function({
   const target = normalizeJid(arg, message.chat);
   if (!target) return message.reply('_Invalid chat! Use `here`, a number, or a JID like `123456789@s.whatsapp.net`_');
   autovv.set('jid', target);
-  return message.reply(`_Auto view once activated ✅_\n_Saving to:_ ${target}` + (isAndroid() ? '' : `\n\n⚠️ _Browser: ${browser}_`));
+  const warn = isAndroid() ? '' : `\n\n⚠️ _Browser: ${browser}_`;
+  return message.reply(`_Auto view once activated ✅_\n_Saving to:_ ${target}${warn}`);
 });
 
 // dedupe retries / reconnect redeliveries

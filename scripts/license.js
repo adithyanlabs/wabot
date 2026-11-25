@@ -28,13 +28,15 @@ const sign = (msg, key) => b64url(crypto.sign(null, Buffer.from(msg), key));
 
 function keygen() {
   if (fs.existsSync(PRIV)) die(`A key already exists at ${PRIV}. Delete it first to replace it (old licenses then stop working).`);
+  const source = fs.readFileSync(GUARD, 'utf8');
+  const keySlot = /const OWNER_PUBLIC_KEY = '[^']*';/;
+  if (!keySlot.test(source)) die('Could not find the public-key slot in lib/patch/guard.js');
   const { publicKey, privateKey } = crypto.generateKeyPairSync('ed25519');
   fs.mkdirSync(KEY_DIR, { recursive: true });
   fs.writeFileSync(PRIV, privateKey.export({ type: 'pkcs8', format: 'pem' }), { mode: 0o600 });
   const pub = publicKey.export({ type: 'spki', format: 'der' }).toString('base64');
   // bake the public key into guard.js so it travels inside the protected source
-  const src = fs.readFileSync(GUARD, 'utf8').replace(/const OWNER_PUBLIC_KEY = '[^']*';/, `const OWNER_PUBLIC_KEY = '${pub}';`);
-  fs.writeFileSync(GUARD, src);
+  fs.writeFileSync(GUARD, source.replace(keySlot, `const OWNER_PUBLIC_KEY = '${pub}';`));
   console.log(`Private key saved to ${PRIV} (keep it SECRET, it is git-ignored).`);
   console.log('Public key baked into lib/patch/guard.js.');
   console.log('\nNext: issue a license for yourself and set it as LICENSE, e.g.');

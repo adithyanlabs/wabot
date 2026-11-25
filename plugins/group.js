@@ -166,7 +166,7 @@ Function({
 		return;
 	}
 	await message.client.groupSettingUpdate(message.chat, 'announcement')
-	await message.send('_Group Muted for ' + match + ' mins_')
+	await message.send(`_Group Muted for ${match} mins_`)
 	await sleep(1000 * 60 * match)
 	await message.client.groupSettingUpdate(message.chat, 'not_announcement')
 	await message.send('*Group opened.*')
@@ -186,7 +186,7 @@ Function({
 		return;
 	}
 	await message.client.groupSettingUpdate(message.chat, 'not_announcement')
-	await message.send('_Group Unmuted for ' + match + ' mins_')
+	await message.send(`_Group Unmuted for ${match} mins_`)
 	await sleep(1000 * 60 * match)
 	await message.client.groupSettingUpdate(message.chat, 'announcement')
 	await message.send('*Group Closed.*')

@@ -55,12 +55,7 @@ Function({
         const response = await got(url);
         const json = JSON.parse(response.body);
         if (response.statusCode === 200) return await message.send(
-            '*📍 Location:* ```' + match + '```\n\n' +
-            '*☀ Temperature:* ```' + json.main.temp_max + '°```\n' + 
-            '*ℹ Description:* ```' + json.weather[0].description + '```\n' +
-            '*☀ Humidity:* ```%' + json.main.humidity + '```\n' + 
-            '*💨 Wind:* ```' + json.wind.speed + 'm/s```\n' + 
-            '*☁ Cloudiness:* ```%' + json.clouds.all + '```\n'
+            `*📍 Location:* \`\`\`${match}\`\`\`\n\n*☀ Temperature:* \`\`\`${json.main.temp_max}°\`\`\`\n*ℹ Description:* \`\`\`${json.weather[0].description}\`\`\`\n*☀ Humidity:* \`\`\`%${json.main.humidity}\`\`\`\n*💨 Wind:* \`\`\`${json.wind.speed}m/s\`\`\`\n*☁ Cloudiness:* \`\`\`%${json.clouds.all}\`\`\`\n`
         );
     } catch {
         return await message.send('Location not found.');

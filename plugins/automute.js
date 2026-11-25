@@ -49,26 +49,13 @@ const createScheduler = ({ pattern, type, label, defaultMsg, desc, action }) => 
         const input = text.toLowerCase()
 
         if (!text) {
-            return await message.reply(
-                `*${label} Manager*\n\n` +
-                `Group: ${groupMetadata.subject}\n` +
-                `Status: ${current?.enabled ? 'Enabled' : 'Disabled'}\n\n` +
-                `Usage:\n` +
-                `${prefix}${pattern} on\n` +
-                `${prefix}${pattern} off\n` +
-                `${prefix}${pattern} get\n` +
-                `${prefix}${pattern} 6:00 AM\n` +
-                `${prefix}${pattern} 12:00 PM`
-            )
+            const usage = [`${prefix}${pattern} on`, `${prefix}${pattern} off`, `${prefix}${pattern} get`, `${prefix}${pattern} 6:00 AM`, `${prefix}${pattern} 12:00 PM`].join('\n')
+            return await message.reply(`*${label} Manager*\n\nGroup: ${groupMetadata.subject}\nStatus: ${current?.enabled ? '✅' : '❌'}\n\nUsage:\n${usage}`)
         }
 
         if (input === 'get') {
             if (!current) return await message.send(`_${label} is not scheduled in this chat_`)
-            return await message.send(
-                `*Time:* ${formatTime(current.time)}\n` +
-                `*Status:* ${current.enabled ? 'on' : 'off'}\n` +
-                `*Message:* ${current.message}`
-            )
+            return await message.send(`*Time:* ${formatTime(current.time)}\n*Status:* ${current.enabled ? '✅' : '❌'}\n*Message:* ${current.message}`)
         }
 
         if (input === 'on' || input === 'off') {

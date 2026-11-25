@@ -165,7 +165,7 @@ Function({
         const media = await message.reply_message.download();
         await fs.writeFileSync('./media/pdf/' + Math.floor(Math.random() * 10000) + '.jpg', media);
         const files = fs.readdirSync('./media/pdf');
-        return await message.send('_Image Added_\n*Total image: ' + files.length + '*\n_type .pdf to get document_');
+        return await message.send(`_Image Added_\n*Total image: ${files.length}*\n_type .pdf to get document_`);
     }
     if (files.length !== 0) {
     const files = fs.readdirSync('./media/pdf');

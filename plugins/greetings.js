@@ -18,17 +18,8 @@ Function({
     const input = text.toLowerCase()
 
     if (!text) {
-        return await message.reply(
-            `*Welcome Manager*\n\n` +
-            `Group: ${groupMetadata.subject}\n` +
-            `Status: ${welcomeEnabled ? 'Enabled' : 'Disabled'}\n\n` +
-            `Usage:\n` +
-            `${prefix}welcome on\n` +
-            `${prefix}welcome off\n` +
-            `${prefix}welcome get\n` +
-            `${prefix}welcome delete\n` +
-            `${prefix}welcome Hey &mention, Welcome to &gname`
-        )
+        const usage = [`${prefix}welcome on`, `${prefix}welcome off`, `${prefix}welcome get`, `${prefix}welcome delete`, `${prefix}welcome Hey &mention, Welcome to &gname`].join('\n')
+        return await message.reply(`*Welcome Manager*\n\nGroup: ${groupMetadata.subject}\nStatus: ${welcomeEnabled ? '✅' : '❌'}\n\nUsage:\n${usage}`)
     }
 
     switch (input) {
@@ -81,18 +72,8 @@ Function({
     const input = text.toLowerCase()
 
     if (!text) {
-        return await message.reply(
-            `*Goodbye Manager*\n\n` +
-            `Group: ${groupMetadata.subject}\n` +
-            `Status: ${goodbyeEnabled ? 'Enabled' : 'Disabled'}\n\n` +
-            `Usage:\n` +
-            `${prefix}goodbye on\n` +
-            `${prefix}goodbye off\n` +
-            `${prefix}goodbye get\n` +
-            `${prefix}goodbye delete\n` +
-            `${prefix}goodbye Bye &mention\n\n` +
-            `More info: https://github.com/A-d-i-t-h-y-a-n/hermit-md/wiki/greetings`
-        )
+        const usage = [`${prefix}goodbye on`, `${prefix}goodbye off`, `${prefix}goodbye get`, `${prefix}goodbye delete`, `${prefix}goodbye Bye &mention`].join('\n')
+        return await message.reply(`*Goodbye Manager*\n\nGroup: ${groupMetadata.subject}\nStatus: ${goodbyeEnabled ? '✅' : '❌'}\n\nUsage:\n${usage}\n\nMore info: https://github.com/adithyanlabs/hermit-md/wiki/greetings`)
     }
 
     switch (input) {

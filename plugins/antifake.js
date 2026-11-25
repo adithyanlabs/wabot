@@ -21,16 +21,8 @@ Function({
     const input = (match || '').trim().toLowerCase()
 
     if (!input) {
-        return await message.reply(
-            `*Antifake Manager*\n\n` +
-            `Group: ${groupMetadata.subject}\n` +
-            `Status: ${isAntiFakeEnabled ? 'Enabled' : 'Disabled'}\n\n` +
-            `Usage:\n` +
-            `${prefix}antifake on\n` +
-            `${prefix}antifake off\n` +
-            `${prefix}antifake list\n` +
-            `${prefix}antifake 1,44,972`
-        )
+        const usage = [`${prefix}antifake on`, `${prefix}antifake off`, `${prefix}antifake list`, `${prefix}antifake 1,44,972`].join('\n')
+        return await message.reply(`*Antifake Manager*\n\nGroup: ${groupMetadata.subject}\nStatus: ${isAntiFakeEnabled ? '✅' : '❌'}\n\nUsage:\n${usage}`)
     }
 
     if (input === 'list') {

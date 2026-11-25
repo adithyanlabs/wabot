@@ -26,7 +26,8 @@ Function({
             return await message.reply(`*Need text!*\nExample: filter 'hi' 'hello'`);
         }
         await FilterDb.setFilter(message.jid, filters[0].replace(/['"“]+/g, ''), filters[1].replace(/['"“]+/g, ''), filters[0][0] === "'" ? true : false);
-        await message.reply('_Successfully set_ ```' + filters[0].replace(/['"]+/g, '') + '``` _to filter!_');
+        const name = filters[0].replace(/['"]+/g, '');
+        await message.reply(`_Successfully set_ \`\`\`${name}\`\`\` _to filter!_`);
     }
 });
 
@@ -63,7 +64,8 @@ Function({
             return await message.reply(`*Need text!*\nExample: pfilter 'hi' 'hello'`);
         }
         await FilterDb.setFilter('pfilter', filters[0].replace(/['"“]+/g, ''), filters[1].replace(/['"“]+/g, ''), filters[0][0] === "'" ? true : false);
-        await message.reply('_Successfully set_ ```' + filters[0].replace(/['"]+/g, '') + '``` _to pfilter!_');
+        const name = filters[0].replace(/['"]+/g, '');
+        await message.reply(`_Successfully set_ \`\`\`${name}\`\`\` _to pfilter!_`);
     }
 });
 
@@ -100,7 +102,8 @@ Function({
             return await message.reply(`*Need text!*\nExample: gfilter 'hi' 'hello'`);
         }
         await FilterDb.setFilter('gfilter', filters[0].replace(/['"“]+/g, ''), filters[1].replace(/['"“]+/g, ''), filters[0][0] === "'" ? true : false);
-        await message.reply('_Successfully set_ ```' + filters[0].replace(/['"]+/g, '') + '``` _to Gfilter!_');
+        const name = filters[0].replace(/['"]+/g, '');
+        await message.reply(`_Successfully set_ \`\`\`${name}\`\`\` _to Gfilter!_`);
     }
 });
 
