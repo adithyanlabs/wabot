@@ -6,7 +6,7 @@ A simple, multi-device WhatsApp bot built on [Baileys](https://github.com/Whiske
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-mask--sir-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/mask-sir)
 ![Node](https://img.shields.io/badge/node-%3E%3D22.13-339933?logo=node.js&logoColor=white)
-![Version](https://img.shields.io/badge/version-4.4.6-blue)
+![Version](https://img.shields.io/badge/version-5.0.0-blue)
 
 </div>
 

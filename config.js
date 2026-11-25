@@ -27,7 +27,7 @@ const PREFIX = NO_PREFIX ? ''
   : PREFIX_RAW.startsWith('^') ? (PREFIX_RAW.match(/\[(\W*)\]/)?.[1]?.[0] ?? PREFIX_RAW)
   : PREFIX_RAW.replace(/[\[\]]/g, '').trim();
 
-let VERSION = 'v4.4.6';
+let VERSION = 'v5.0.0';
 try { VERSION = 'v' + require('./package.json').version; } catch {}
 
 const config = {
