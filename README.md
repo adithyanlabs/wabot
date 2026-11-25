@@ -1,92 +1,162 @@
-#### HERMIT MD WHATSAPP BOT
-Hermit-md - Simple whatsapp Multi Device whatsapp bot.
+<div align="center">
 
-***
+# Hermit-MD
 
-### SETUP
-1. [![Fork](https://img.shields.io/github/forks/adithyanlabs/hermit-bot?style=social)](https://github.com/adithyanlabs/hermit-bot/fork)
-2. Scan the QR or pair and copy it
-    <br>
-<a href='https://hermit-md.vercel.app/' target="_blank"><img alt='SESSION' src='https://img.shields.io/badge/SESSION-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=black&color=black'/></a>
+A simple, multi-device WhatsApp bot built on [Baileys](https://github.com/WhiskeySockets/Baileys).
 
----
+[![Sponsor](https://img.shields.io/badge/Sponsor-mask--sir-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/mask-sir)
+![Node](https://img.shields.io/badge/node-%3E%3D22.13-339933?logo=node.js&logoColor=white)
+![Version](https://img.shields.io/badge/version-4.4.6-blue)
 
-<!--
-### Privacy and Security
-
-- Hermit-MD is an **open-source** bot with **encrypted source code**. We value privacy, and the core functionality is protected from tampering.
-- Your session ID, generated via https://hermit-md.vercel.app/session, is **encrypted** with a secret password and stored securely for **24 hours**.  
-- The session data is **only accessible by you**. We cannot decrypt it, ensuring full privacy.
-- We do **not use Pastebin or any other alternatives** for storing session data. All session data is securely stored in a **PostgreSQL database**, which is fully controlled by us, ensuring your data's security and privacy.
-- Once the session is initiated, it is saved on your side in encrypted form, and the bot communicates with the server only for **error reports, updates, and active user counts**.  
-- No personal data or decrypted sessions are shared via the WebSocket connection.
+</div>
 
 ---
 
-#### DEPLOY TO RENDER 
+## Features
 
-1. If You don't have a account in render. Create a account.
-    <br>
-<a href='https://dashboard.render.com/register' target="_blank"><img alt='render' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=render&logoColor=white'/></a>
+- Multi-device login, with an Android companion identity so the bot can receive view-once media
+- Sticker tools that keep sticker audio, plus audio, video and image converters
+- YouTube, Instagram and remove.bg downloaders and tools
+- Group management: warn, antilink, antifake, automute/unmute, greetings and filters
+- Bot replies in several languages (`.lang`) that you can edit yourself (`.setreply`)
+- Change config from WhatsApp with `.setvar` / `.getvar` on VPS, Koyeb and Render
+- External plugins installed with `.plugin <url>`
 
-3. Get [DATABASE_URL](https://github.com/adithyanlabs/hermit-md/wiki/DATABASE_URL) and copy it
+## Requirements
 
-4. Get [Render api key](https://dashboard.render.com/u/settings#api-keys)
+- **Node.js 22.13 or newer.** The bot uses the built-in `node:sqlite` module.
+- **ffmpeg** for stickers, audio and video tools.
+- **git** for the `.update` command.
 
-2. Now Deploy
-    <br>
-<a href='https://render.com/deploy?repo=https://github.com/adithyanlabs/hermit-bot' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=render&logoColor=white'/></a>
+The installer below sets up all three for you if they are missing.
 
-#### DEPLOY TO KOYEB 
+---
 
-1. If You don't have a account in koyeb. Create a account.
-    <br>
-<a href='https://app.koyeb.com/auth/signup' target="_blank"><img alt='koyeb' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=koyeb&logoColor=white'/></a>
+## Installation
 
-3. Create [DATABASE_URL](https://app.koyeb.com/database-services/new) and copy it
+### 1. One-file installer (Windows, Linux, macOS, Termux)
 
-4. Get [Koyeb API_KEY](https://app.koyeb.com/settings/api)
+`install.cmd` installs everything and runs the same way on every platform. It installs Node.js 22 LTS, ffmpeg and git if they're missing. On Windows it puts them in `.runtime/`, so you don't need admin rights. Then it installs the npm packages, creates `config.env` and starts the bot with pm2.
 
-2. Now Deploy
-    <br>
-<a href='https://hermit-md.vercel.app/koyeb' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=koyeb&logoColor=white'/></a>
+```bash
+git clone https://github.com/adithyanlabs/wabot
+cd wabot
+```
 
--->
+| Platform | Command |
+| --- | --- |
+| Windows 10/11 | Double-click `install.cmd`, or run `install.cmd` in a terminal |
+| Linux / macOS | `sh install.cmd` |
+| Termux (Android) | `pkg install git -y`, then `sh install.cmd` |
 
-#### RUN ON VPS/UBUNTU/WINDOWS
+On first start, you're asked for your WhatsApp number (it becomes `SUDO`). Then **scan the QR code** shown in the terminal with WhatsApp → *Linked devices*.
 
-1. Install NodeJs,ffmpeg
-2. Installation
-   ```
-   npm i -global pm2
-   git clone https://github.com/adithyanlabs/wabot.git
-   cd hermit-bot
-   npm install
-   ```
-3. Configuration
-   ```
-   echo "VPS = true
-     SESSION_ID = null
-     AUTH_FILE = session
-     SUDO = null
-     PREFIX = .
-     MODE = private
-     LOG_MSG = true" > config.env
-   ```
-- Start
-  ```
-  npm start
-  ```
-- Stop
-  ```
-  pm2 delete hermit-md
-  ```
-<br>
+#### Installer actions
 
-For help visit [Github wiki](https://github.com/adithyanlabs/hermit-bot/wiki)
+```bash
+sh install.cmd            # install if needed, then start (default)
+sh install.cmd install    # only install dependencies and create config.env
+sh install.cmd restart    # restart the bot
+sh install.cmd stop       # stop the bot
+sh install.cmd logs       # follow the bot logs
+```
 
-***
+On Windows, use `install.cmd <action>`.
 
-[![Join us on Telegram](https://img.shields.io/badge/Join_Telegram-blue?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/hermitmd_official)
+> Pressing <kbd>Ctrl</kbd>+<kbd>C</kbd> or closing the window only detaches. The bot keeps running under pm2 until you run `stop`.
 
-<a href="https://whatsapp.com/channel/0029Va4OxFAGk1FjrFvTJa1V"><img alt="WhatsApp" src="https://img.shields.io/badge/-Whatsapp%20Channel-white?style=for-the-badge&logo=whatsapp&logoColor=black"/></a>
+### 2. Docker
+
+```bash
+docker build -f lib/Dockerfile -t hermit-md .
+docker run -d --name hermit-md --env-file config.env -p 3000:3000 hermit-md
+```
+
+### 3. Cloud platforms
+
+Set at least `SESSION_ID` on cloud hosts. Use a Postgres `DATABASE_URL` so data survives redeploys.
+
+| Platform | How |
+| --- | --- |
+| **Heroku** | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/adithyanlabs/wabot). It uses `app.json` and `heroku.yml`. |
+| **Render** | [Deploy with `render.yaml`](https://render.com/deploy?repo=https://github.com/adithyanlabs/wabot). Set `RENDER_API` and `RENDER_NAME` to enable `.setvar` and `.update`. |
+| **Koyeb** | Deploy the repo with the Dockerfile. Set `KOYEB_API_KEY` and `KOYEB_APP_NAME` to enable `.setvar` and `.update`. |
+
+### 4. Manual (VPS)
+
+```bash
+git clone https://github.com/adithyanlabs/wabot && cd wabot
+npm install --omit=dev
+echo "VPS=true" > config.env
+npm start
+```
+
+---
+
+## Configuration
+
+Every setting is read from environment variables, or from a `config.env` file in the bot folder. Each key in `config.env` uses the same name as its environment variable.
+
+```env
+# config.env
+SUDO=919876543210
+PREFIX=.
+MODE=private
+VPS=true
+LOG_MSG=false
+ALWAYS_ONLINE=false
+```
+
+The most-used settings:
+
+| Key | Default | What it does |
+| --- | --- | --- |
+| `SESSION_ID` | – | Session to log in with (needed on cloud hosts) |
+| `SUDO` | `0,0` | Owner number(s), comma separated |
+| `PREFIX` | `^[.,!]` | Command prefix: `.`, `^[.,!]` or `null` for none |
+| `MODE` | `private` | `public` or `private` |
+| `DATABASE_URL` | `./database.db` | SQLite file, or a `postgres://` URL |
+| `VPS` | `false` | Enables `.setvar` / `.getvar` editing of `config.env` |
+
+**Full list with every option, format and example: [Configuration wiki](wiki/Configuration.md)**
+
+### Renamed settings
+
+Old names still work, but please switch to the new ones:
+
+| Old | New |
+| --- | --- |
+| `SEND_READ` | `READ_COMMAND` |
+| `MSG_LOG` | `LOG_MSG` |
+| `BLOCKCHAT` | `BLOCK_CHAT` |
+| `TERMUX` / `TERMUX_VPS` | `VPS` |
+| `RBG_API_KEY` | `REMOVE_BG_API_KEY` |
+
+### Changing settings from WhatsApp
+
+```
+.setvar MODE=public     set a value (KEY=VALUE or KEY:VALUE)
+.getvar MODE            show one value
+.allvar                 show all values
+.lang ml                change the bot reply language
+```
+
+On a VPS, restart the bot after `.setvar` to apply the change. On Koyeb and Render, `.setvar` updates the service's environment and redeploys it. Use `KEY:VALUE` there, and avoid values that contain `:`.
+
+---
+
+## Wiki
+
+- [Home](wiki/Home.md)
+- [Installation](wiki/Installation.md)
+- [Configuration](wiki/Configuration.md)
+
+## Sponsor
+
+If this bot is useful to you, please consider supporting development:
+
+<a href="https://github.com/mask-sir"><img src="https://img.shields.io/badge/Sponsor-mask--sir-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor mask-sir"></a>
+
+## Disclaimer
+
+This project is not affiliated with or endorsed by WhatsApp or Meta. Automating a WhatsApp account can get it banned, so use it at your own risk.
